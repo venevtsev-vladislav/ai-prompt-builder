@@ -34,3 +34,11 @@ if st.session_state.get("user"):
 
 # Отрисовка UI
 render_main_ui()
+
+if st.button("📋 Скопировать токен"):
+    access_token = st.session_state.get("user", {}).get("access_token")
+    if access_token:
+        st.success("🔑 Токен получен:")
+        st.code(f"Bearer {access_token}", language="text")
+    else:
+        st.error("❌ Токен не найден. Убедитесь, что вы вошли в систему.")

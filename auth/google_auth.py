@@ -52,6 +52,10 @@ def setup_authentication():
         # ✅ Получаем user_info от Google
         user_info = st.session_state.get("user_info", {})
 
+        # 🔐 Получаем access_token
+        access_token = st.session_state.get("access_token")
+        print("🔑 Access Token:", access_token)
+
         # 🔗 Сохраняем/обновляем пользователя в Supabase и получаем UUID
         user_uuid = sync_user_to_supabase(user_info)
 
@@ -61,6 +65,7 @@ def setup_authentication():
             "email": user_info.get("email"),
             "name": user_info.get("name"),
             "avatar_url": user_info.get("picture"),
+            "access_token": access_token,  # 👈 добавлено сюда
         }
         return user_info
 
