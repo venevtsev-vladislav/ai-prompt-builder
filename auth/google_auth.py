@@ -5,11 +5,6 @@ from services.supabase_service import sync_user_to_supabase  # 🔗 Синхро
 from constants import FRONTEND_URL
 import os
 
-# 📌 Выводим client_id для отладки (удобно при переключении проектов Google)
-with open("google_credentials.json") as f:
-    creds = json.load(f)
-    print("🧪 Используемый client_id:", creds["web"]["client_id"])
-
 # Собираем словарь как будто он из google_credentials.json
 creds = {
     "web": {
@@ -35,7 +30,7 @@ def get_authenticator():
     """Создаёт или возвращает кэшированный объект авторизатора Google"""
     if "authenticator" not in st.session_state:
         st.session_state["authenticator"] = Authenticate(
-            secret_credentials_path="google_credentials.json",
+            secret_credentials_path=temp_cred_path,
             cookie_name="my_cookie",
             cookie_key="super_secret_key",
             redirect_uri = FRONTEND_URL
