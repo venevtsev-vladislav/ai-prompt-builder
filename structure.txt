@@ -1,0 +1,23 @@
+.
+├── README.md
+├── app.py
+├── app_auth_test.py
+├── auth
+│   └── google_auth.py
+├── backend
+│   ├── db.py
+│   ├── main.py
+│   └── models.py
+├── constants.py
+├── google_credentials.json
+├── prompts.py
+├── requirements.txt
+├── services
+│   ├── gpt_service.py
+│   ├── prompt_service.py
+│   └── supabase_service.py
+├── state.py
+├── structure.txt
+└── ui.py
+
+4 directories, 17 files
