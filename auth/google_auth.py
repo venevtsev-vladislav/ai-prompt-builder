@@ -53,7 +53,7 @@ def setup_authentication():
         user_info = st.session_state.get("user_info", {})
 
         # 🔐 Получаем access_token
-        access_token = st.session_state.get("access_token")
+        access_token = authenticator.token["access_token"]
         print("🔑 Access Token:", access_token)
 
         # 🔗 Сохраняем/обновляем пользователя в Supabase и получаем UUID
