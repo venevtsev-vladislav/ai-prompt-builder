@@ -3,12 +3,33 @@ from streamlit_google_auth import Authenticate
 import json
 from services.supabase_service import sync_user_to_supabase  # 🔗 Синхронизация с Supabase
 from constants import FRONTEND_URL
+import os
 
 # 📌 Выводим client_id для отладки (удобно при переключении проектов Google)
 with open("google_credentials.json") as f:
     creds = json.load(f)
     print("🧪 Используемый client_id:", creds["web"]["client_id"])
 
+# Собираем словарь как будто он из google_credentials.json
+creds = {
+    "web": {
+        "client_id": os.getenv("GOOGLE_CLIENT_ID"),
+        "project_id": "coastal-range-459218-g1",
+        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+        "token_uri": "https://oauth2.googleapis.com/token",
+        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+        "client_secret": os.getenv("GOOGLE_CLIENT_SECRET"),
+        "redirect_uris": os.getenv("GOOGLE_REDIRECT_URIS", "").split(","),
+        "javascript_origins": os.getenv("GOOGLE_ORIGINS", "").split(",")
+    }
+}
+
+print("🧪 Используемый client_id:", creds["web"]["client_id"])
+
+# Сохраняем временно на диск, т.к. библиотека ожидает путь
+temp_cred_path = "/tmp/google_credentials.json"
+with open(temp_cred_path, "w") as f:
+    json.dump(creds, f)
 
 def get_authenticator():
     """Создаёт или возвращает кэшированный объект авторизатора Google"""
