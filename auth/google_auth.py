@@ -2,6 +2,7 @@ import streamlit as st
 from streamlit_google_auth import Authenticate
 import json
 from services.supabase_service import sync_user_to_supabase  # 🔗 Синхронизация с Supabase
+from constants import FRONTEND_URL
 
 # 📌 Выводим client_id для отладки (удобно при переключении проектов Google)
 with open("google_credentials.json") as f:
@@ -16,7 +17,7 @@ def get_authenticator():
             secret_credentials_path="google_credentials.json",
             cookie_name="my_cookie",
             cookie_key="super_secret_key",
-            redirect_uri="http://localhost:8501"
+            redirect_uri = FRONTEND_URL
         )
     return st.session_state["authenticator"]
 

@@ -2,6 +2,7 @@
 
 import requests
 import streamlit as st
+from constants import BACKEND_URL
 
 def validate_prompt_input(name: str, hint: str) -> bool:
     if not name.strip():
@@ -39,7 +40,7 @@ def save_prompt(name: str, hint: str, param1: str, param2: str):
 
     try:
         # 🔁 Попытка обновления
-        put_url = f"http://localhost:8000/prompts/{user_id}/{name}"
+        put_url = f"{BACKEND_URL}/prompts/{user_id}/{name}"
         put_response = requests.put(put_url, json=payload, headers=headers)
 
         if put_response.status_code == 200:
@@ -63,7 +64,7 @@ def delete_prompt(name: str):
     if not user_id:
         st.warning("⚠️ Нет user_id")
 
-    url = f"http://localhost:8000/prompts/{user_id}/{name}"
+    url = f"{BACKEND_URL}/prompts/{user_id}/{name}"
     try:
         response = requests.delete(url)
         print(f"🧨 DELETE URL: {url}")

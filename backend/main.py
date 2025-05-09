@@ -57,7 +57,7 @@ def add_prompt(prompt: Prompt):
         "param2": prompt.param2,
         "user_id": prompt.user_id
     }).execute()
-    print("📤 Supabase insert response:", response)
+    print("📤 Supabase insert response:", data)
     return data.data[0]
 
 @app.put("/prompts/{user_id}/{name}", response_model=Prompt)
